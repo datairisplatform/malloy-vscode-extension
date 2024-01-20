@@ -32,6 +32,7 @@ import {
 import {createBigQueryConnection} from '../bigquery_connection';
 import {createDuckDbConnection} from '../duckdb_connection';
 import {createPostgresConnection} from '../postgres_connection';
+import {createSnowflakeConnection} from '../snowflake_connection';
 import {isDuckDBAvailable} from '../../duckdb_availability';
 
 import {fileURLToPath} from 'url';
@@ -52,6 +53,7 @@ export class DesktopConnectionFactory implements ConnectionFactory {
     const available = [
       ConnectionBackend.BigQuery,
       ConnectionBackend.Postgres,
+      ConnectionBackend.Snowflake,
       ConnectionBackend.External,
     ];
     if (isDuckDBAvailable) {
@@ -94,10 +96,18 @@ export class DesktopConnectionFactory implements ConnectionFactory {
         );
         break;
       }
-      case ConnectionBackend.External: {
-        connection = await this.externalConnectionFactory.createOtherConnection(
-          connectionConfig
+      case ConnectionBackend.Snowflake: {
+        connection = await createSnowflakeConnection(
+          connectionConfig,
+          configOptions
         );
+        break;
+      }
+      case ConnectionBackend.External: {
+        connection =
+          await this.externalConnectionFactory.createOtherConnection(
+            connectionConfig
+          );
         break;
       }
     }
