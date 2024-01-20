@@ -36,7 +36,6 @@ import {
   ConnectionBackendNames,
   ConnectionConfig,
   ExternalConnectionConfig,
-  PostgresConnectionConfig,
 } from '../../../../common/connection_manager_types';
 import {
   ConnectionMessageInstallExternalConnection,
@@ -48,6 +47,7 @@ import './bigquery_connection_editor';
 import './duckdb_connection_editor';
 import './external_connection_editor';
 import './postgres_connection_editor';
+import './snowflake_connection_editor';
 
 provideVSCodeDesignSystem().register(
   vsCodeButton(),
@@ -103,6 +103,7 @@ export class ConnectionEditor extends LitElement {
     ConnectionBackend.BigQuery,
     ConnectionBackend.Postgres,
     ConnectionBackend.DuckDB,
+    ConnectionBackend.Snowflake,
     ConnectionBackend.External,
   ];
 
@@ -133,10 +134,9 @@ export class ConnectionEditor extends LitElement {
             <td>
               <vscode-dropdown
                 @change=${({target: {value}}: {target: HTMLInputElement}) => {
-                  this.setConfig({
-                    ...this.config,
-                    backend: value as ConnectionBackend,
-                  });
+                  const connectionCfg: ConnectionConfig = {...this.config};
+                  connectionCfg.backend = value as ConnectionBackend;
+                  this.setConfig(connectionCfg);
                 }}
                 value=${this.config.backend}
               >
@@ -161,24 +161,29 @@ export class ConnectionEditor extends LitElement {
               this.requestServiceAccountKeyPath(this.config.id)}
           ></bigquery-connection-editor>`
         : this.config.backend === ConnectionBackend.Postgres
-        ? html`<postgres-connection-editor
-            .config=${this.config as PostgresConnectionConfig}
-            .setConfig=${this.setConfig}
-          ></postgres-connection-editor>`
-        : this.config.backend === ConnectionBackend.DuckDB
-        ? html`<duckdb-connection-editor
-            .config=${this.config}
-            .setConfig=${this.setConfig}
-          ></duckdb-connection-editor>`
-        : this.config.backend === ConnectionBackend.External
-        ? html`<external-connection-editor
-            .config=${this.config}
-            .setConfig=${this.setConfig}
-            .installExternalConnection=${this.installExternalConnection}
-            .installExternalConnectionStatus=${this
-              .installExternalConnectionStatus}
-          ></external-connection-editor>`
-        : html`<div>Unknown Connection Type</div>`}
+          ? html`<postgres-connection-editor
+              .config=${this.config}
+              .setConfig=${this.setConfig}
+            ></postgres-connection-editor>`
+          : this.config.backend === ConnectionBackend.DuckDB
+            ? html`<duckdb-connection-editor
+                .config=${this.config}
+                .setConfig=${this.setConfig}
+              ></duckdb-connection-editor>`
+            : this.config.backend === ConnectionBackend.Snowflake
+              ? html`<snowflake-connection-editor
+                  .config=${this.config}
+                  .setConfig=${this.setConfig}
+                ></snowflake-connection-editor>`
+              : this.config.backend === ConnectionBackend.External
+                ? html`<external-connection-editor
+                    .config=${this.config}
+                    .setConfig=${this.setConfig}
+                    .installExternalConnection=${this.installExternalConnection}
+                    .installExternalConnectionStatus=${this
+                      .installExternalConnectionStatus}
+                  ></external-connection-editor>`
+                : html`<div>Unknown Connection Type</div>`}
       <vscode-divider></vscode-divider>
       <table>
         <tbody>

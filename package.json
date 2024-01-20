@@ -11,6 +11,7 @@
       "@malloydata/db-bigquery",
       "@malloydata/db-duckdb",
       "@malloydata/db-postgres",
+      "@malloydata/db-snowflake",
       "@malloydata/render",
       "@malloydata/malloy-sql",
       "@malloydata/syntax-highlight"
@@ -471,6 +472,45 @@
                     "type": "string"
                   }
                 }
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "backend": {
+                    "type": "string",
+                    "const": "snowflake"
+                  },
+                  "account": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "warehouse": {
+                    "type": "string"
+                  },
+                  "database": {
+                    "type": "string"
+                  },
+                  "schema": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "isDefault": {
+                    "type": "boolean"
+                  },
+                  "timeoutMs": {
+                    "type": "number"
+                  }
+                }
               }
             ]
           },
@@ -552,10 +592,12 @@
     "@malloydata/db-bigquery": "0.0.119",
     "@malloydata/db-duckdb": "0.0.119",
     "@malloydata/db-postgres": "0.0.119",
+    "@datairis/db-snowflake": "^0.0.121",
     "@malloydata/malloy": "0.0.119",
     "@malloydata/malloy-sql": "0.0.119",
     "@malloydata/render": "0.0.119",
     "@malloydata/syntax-highlight": "0.0.119",
+    "@vscode/codicons": "^0.0.33",
     "@vscode/webview-ui-toolkit": "^1.2.1",
     "duckdb": "0.8.1",
     "keytar": "7.7.0",

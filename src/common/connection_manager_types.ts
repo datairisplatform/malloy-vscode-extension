@@ -30,6 +30,7 @@ export enum ConnectionBackend {
   BigQuery = 'bigquery',
   Postgres = 'postgres',
   DuckDB = 'duckdb',
+  Snowflake = 'snowflake',
   External = 'external',
 }
 
@@ -37,6 +38,7 @@ export const ConnectionBackendNames: Record<ConnectionBackend, string> = {
   [ConnectionBackend.BigQuery]: 'BigQuery',
   [ConnectionBackend.Postgres]: 'Postgres',
   [ConnectionBackend.DuckDB]: 'DuckDB',
+  [ConnectionBackend.Snowflake]: 'Snowflake',
   // TODO(figutierrez): Remove beta once ready.
   [ConnectionBackend.External]: 'External (Beta)',
 };
@@ -79,6 +81,17 @@ export interface DuckDBConnectionConfig extends BaseConnectionConfig {
   workingDirectory?: string;
 }
 
+export interface SnowflakeConnectionConfig extends BaseConnectionConfig {
+  backend: ConnectionBackend.Snowflake;
+  account?: string;
+  username?: string;
+  password?: string;
+  warehouse?: string;
+  database?: string;
+  schema?: string;
+  timeoutMs?: number;
+}
+
 export interface ExternalConnectionPackageInfo {
   packageName: string;
   version: string;
@@ -110,6 +123,7 @@ export type ConnectionConfig =
   | BigQueryConnectionConfig
   | PostgresConnectionConfig
   | DuckDBConnectionConfig
+  | SnowflakeConnectionConfig
   | ExternalConnectionConfig;
 
 export interface ConfigOptions {

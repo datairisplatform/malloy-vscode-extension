@@ -61,7 +61,7 @@ async function handleConnectionsPreSave(
   for (let index = 0; index < connections.length; index++) {
     const connection = connections[index];
     connection.isDefault = index === defaultIndex;
-    if ('password' in connection) {
+    if ('password' in connection && 'useKeychainPassword' in connection) {
       if (connection.useKeychainPassword === false) {
         connection.useKeychainPassword = undefined;
         await deletePassword(
