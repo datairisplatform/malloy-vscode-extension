@@ -3,7 +3,7 @@ import {
   ConnectionFactory,
   TestableConnection,
   registerDialect,
-} from '@malloydata/malloy';
+} from '@datairis/malloy';
 import {PluginManager} from 'live-plugin-manager';
 import {
   ExternalConnectionConfig,

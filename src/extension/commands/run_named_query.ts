@@ -26,7 +26,7 @@ import {
   getActiveDocumentMetadata,
   runMalloyQueryWithProgress,
 } from './run_query_utils';
-import {ResultJSON} from '@malloydata/malloy';
+import {ResultJSON} from '@datairis/malloy';
 
 export async function runNamedQuery(
   worker: WorkerConnection,

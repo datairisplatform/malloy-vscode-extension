@@ -26,7 +26,7 @@ import {
   getActiveDocumentMetadata,
 } from './run_query_utils';
 import {WorkerConnection} from '../worker_connection';
-import {ResultJSON} from '@malloydata/malloy';
+import {ResultJSON} from '@datairis/malloy';
 
 export async function runQueryFileCommand(
   worker: WorkerConnection,

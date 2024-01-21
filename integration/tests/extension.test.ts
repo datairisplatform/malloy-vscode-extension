@@ -26,7 +26,7 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
 
-import {ResultJSON} from '@malloydata/malloy';
+import {ResultJSON} from '@datairis/malloy';
 
 describe('Smoke tests', function () {
   this.timeout(20000);

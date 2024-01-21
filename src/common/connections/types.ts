@@ -27,7 +27,7 @@ import {
   ConnectionConfig,
   ExternalConnectionConfig,
 } from '../connection_manager_types';
-import {TestableConnection} from '@malloydata/malloy';
+import {TestableConnection} from '@datairis/malloy';
 
 export interface ConnectionFactory {
   reset(): void;

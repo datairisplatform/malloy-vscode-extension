@@ -24,7 +24,7 @@
 import {
   ConnectionConfigSchema,
   ConnectionConfig as MalloyConnectionConfig,
-} from '@malloydata/malloy';
+} from '@datairis/malloy';
 
 export enum ConnectionBackend {
   BigQuery = 'bigquery',

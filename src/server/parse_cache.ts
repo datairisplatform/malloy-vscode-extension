@@ -22,13 +22,13 @@
  */
 
 import {TextDocument} from 'vscode-languageserver-textdocument';
-import {Malloy, Parse} from '@malloydata/malloy';
+import {Malloy, Parse} from '@datairis/malloy';
 import {
   MalloySQLParse,
   MalloySQLParser,
   MalloySQLSQLParse,
   MalloySQLSQLParser,
-} from '@malloydata/malloy-sql';
+} from '@datairis/malloy-sql';
 
 const PARSE_CACHE = new Map<string, {parsed: Parse; version: number}>();
 const MALLOYSQL_PARSE_CACHE = new Map<

@@ -29,7 +29,7 @@ import {
   vsCodeOption,
   vsCodeTextField,
 } from '@vscode/webview-ui-toolkit';
-import {ConnectionConfig, ConnectionParameterValue} from '@malloydata/malloy';
+import {ConnectionConfig, ConnectionParameterValue} from '@datairis/malloy';
 import {
   ExternalConnectionConfig,
   ExternalConnectionSource,

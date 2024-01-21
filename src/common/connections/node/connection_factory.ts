@@ -21,7 +21,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {TestableConnection} from '@malloydata/malloy';
+import {TestableConnection} from '@datairis/malloy';
 import {ConnectionFactory} from '../types';
 import {
   ConfigOptions,

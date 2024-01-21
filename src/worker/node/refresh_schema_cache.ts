@@ -21,7 +21,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {Runtime} from '@malloydata/malloy';
+import {Runtime} from '@datairis/malloy';
 import {MessageRefreshSchemaCache} from '../../common/worker_message_types';
 import {CellData, FileHandler} from '../../common/types';
 import {ConnectionManager} from '../../common/connection_manager';

@@ -28,8 +28,8 @@ import {
   Result,
   Runtime,
   SerializedExplore,
-} from '@malloydata/malloy';
-import {MalloySQLSQLParser} from '@malloydata/malloy-sql';
+} from '@datairis/malloy';
+import {MalloySQLSQLParser} from '@datairis/malloy-sql';
 
 import {WorkerMessageHandler, MessageRun} from '../common/worker_message_types';
 

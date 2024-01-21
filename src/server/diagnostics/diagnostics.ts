@@ -22,7 +22,7 @@
  */
 
 import {Diagnostic, DiagnosticSeverity} from 'vscode-languageserver';
-import {LogMessage, MalloyError} from '@malloydata/malloy';
+import {LogMessage, MalloyError} from '@datairis/malloy';
 import {TextDocument} from 'vscode-languageserver-textdocument';
 import {TranslateCache} from '../translate_cache';
 import {parseMalloySQLSQLWithCache} from '../parse_cache';

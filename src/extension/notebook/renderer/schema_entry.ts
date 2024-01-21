@@ -24,7 +24,7 @@
 import {LitElement, html, render} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
-import {Explore, Field, NamedQuery, QueryField} from '@malloydata/malloy';
+import {Explore, Field, NamedQuery, QueryField} from '@datairis/malloy';
 import {ActivationFunction} from 'vscode-notebook-renderer';
 import {FetchModelMessage} from '../../../common/message_types';
 import {fieldType} from '../../../common/schema';
