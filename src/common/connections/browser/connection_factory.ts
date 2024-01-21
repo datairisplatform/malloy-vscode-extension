@@ -21,7 +21,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {TestableConnection} from '@malloydata/malloy';
+import {TestableConnection} from '@datairis/malloy';
 import {ConnectionFactory} from '../types';
 import {
   ConfigOptions,
@@ -30,7 +30,7 @@ import {
   ExternalConnectionConfig,
 } from '../../connection_manager_types';
 import {createDuckDbWasmConnection} from '../duckdb_wasm_connection';
-import {DuckDBWASMConnection} from '@malloydata/db-duckdb/wasm';
+import {DuckDBWASMConnection} from '@datairis/db-duckdb/wasm';
 
 export type FetchCallback = (uri: string) => Promise<Uint8Array>;
 

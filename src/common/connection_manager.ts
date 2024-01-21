@@ -25,7 +25,7 @@ import {
   Connection,
   LookupConnection,
   TestableConnection,
-} from '@malloydata/malloy';
+} from '@datairis/malloy';
 import {
   ConfigOptions,
   ConnectionConfig,

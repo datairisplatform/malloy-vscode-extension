@@ -21,7 +21,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {StructDef, URLReader} from '@malloydata/malloy';
+import {StructDef, URLReader} from '@datairis/malloy';
 import {ConnectionConfig} from './connection_manager_types';
 
 export interface MalloyConfig {

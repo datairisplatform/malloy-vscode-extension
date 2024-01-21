@@ -21,7 +21,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {DuckDBWASMConnection} from '@malloydata/db-duckdb/wasm';
+import {DuckDBWASMConnection} from '@datairis/db-duckdb/wasm';
 import {
   ConfigOptions,
   DuckDBConnectionConfig,

@@ -22,7 +22,7 @@
  */
 
 import * as vscode from 'vscode';
-import {MalloySQLParser, MalloySQLStatementType} from '@malloydata/malloy-sql';
+import {MalloySQLParser, MalloySQLStatementType} from '@datairis/malloy-sql';
 import {CellMetadata} from '../../common/types';
 
 interface NotebookMetadata {

@@ -21,7 +21,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {DuckDBConnection} from '@malloydata/db-duckdb';
+import {DuckDBConnection} from '@datairis/db-duckdb';
 import {
   ConfigOptions,
   DuckDBConnectionConfig,

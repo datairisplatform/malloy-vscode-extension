@@ -26,7 +26,7 @@ import {customElement, property} from 'lit/decorators.js';
 import {classMap} from 'lit/directives/class-map.js';
 
 import {styles} from './schema_renderer.css';
-import {Explore, Field, NamedQuery, QueryField} from '@malloydata/malloy';
+import {Explore, Field, NamedQuery, QueryField} from '@datairis/malloy';
 import {
   exploreSubtype,
   fieldType,

@@ -24,8 +24,8 @@
 import {LitElement, css, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {until} from 'lit/directives/until.js';
-import {Result} from '@malloydata/malloy';
-import {HTMLView} from '@malloydata/render';
+import {Result} from '@datairis/malloy';
+import {HTMLView} from '@datairis/render';
 import {MalloyRendererMessage} from '../types';
 
 const styles = css`

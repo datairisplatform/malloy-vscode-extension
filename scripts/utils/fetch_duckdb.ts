@@ -24,7 +24,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import duckdbPackage from '@malloydata/db-duckdb/package.json';
+import duckdbPackage from '@datairis/db-duckdb/package.json';
 import {fetchNode} from './fetch_node';
 
 const DUCKDB_VERSION = duckdbPackage.dependencies.duckdb;

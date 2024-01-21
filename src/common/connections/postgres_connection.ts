@@ -22,7 +22,7 @@
  */
 
 import {getPassword} from 'keytar';
-import {PostgresConnection} from '@malloydata/db-postgres';
+import {PostgresConnection} from '@datairis/db-postgres';
 import {
   PostgresConnectionConfig,
   ConfigOptions,

@@ -24,7 +24,7 @@
 import {html, render} from 'lit';
 import {ActivationFunction} from 'vscode-notebook-renderer';
 import './malloy_renderer';
-import {Result} from '@malloydata/malloy';
+import {Result} from '@datairis/malloy';
 
 const mousewheelHandler = (evt: Event) => {
   evt.stopPropagation();

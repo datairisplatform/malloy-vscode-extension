@@ -21,14 +21,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {
-  Explore,
-  Field,
-  NamedQuery,
-  QueryField,
-  Result,
-} from '@malloydata/malloy';
-import {HTMLView} from '@malloydata/render';
+import {Explore, Field, NamedQuery, QueryField, Result} from '@datairis/malloy';
+import {HTMLView} from '@datairis/render';
 import {css, html, LitElement, nothing} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {when} from 'lit/directives/when.js';

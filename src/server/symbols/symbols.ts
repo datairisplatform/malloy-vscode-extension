@@ -22,7 +22,7 @@
  */
 
 import {TextDocument} from 'vscode-languageserver-textdocument';
-import {DocumentSymbol as MalloyDocumentSymbol} from '@malloydata/malloy';
+import {DocumentSymbol as MalloyDocumentSymbol} from '@datairis/malloy';
 import {DocumentSymbol, SymbolKind} from 'vscode-languageserver';
 import {parseWithCache} from '../parse_cache';
 

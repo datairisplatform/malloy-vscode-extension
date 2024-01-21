@@ -22,17 +22,12 @@
  */
 
 import {Connection, TextDocuments} from 'vscode-languageserver';
-import {
-  MalloyError,
-  Model,
-  ModelMaterializer,
-  Runtime,
-} from '@malloydata/malloy';
+import {MalloyError, Model, ModelMaterializer, Runtime} from '@datairis/malloy';
 import {TextDocument} from 'vscode-languageserver-textdocument';
 
 import {ConnectionManager} from '../common/connection_manager';
 import {BuildModelRequest, CellData} from '../common/types';
-import {MalloySQLSQLParser} from '@malloydata/malloy-sql';
+import {MalloySQLSQLParser} from '@datairis/malloy-sql';
 import {FetchModelMessage} from '../common/message_types';
 import {fixLogRange} from '../common/malloy_sql';
 

@@ -24,7 +24,7 @@
 import * as vscode from 'vscode';
 
 import {MALLOY_EXTENSION_STATE, RunState} from '../state';
-import {Result, ResultJSON} from '@malloydata/malloy';
+import {Result, ResultJSON} from '@datairis/malloy';
 import {
   QueryMessageStatus,
   QueryRunStatus,

@@ -21,7 +21,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {Explore, Field, JoinRelationship} from '@malloydata/malloy';
+import {Explore, Field, JoinRelationship} from '@datairis/malloy';
 
 export function isFieldAggregate(field: Field) {
   return field.isAtomicField() && field.isCalculation();
