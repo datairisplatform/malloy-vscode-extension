@@ -30,7 +30,7 @@ import {
   QueryField,
   AtomicField,
   DocumentLocation,
-} from '@malloydata/malloy';
+} from '@datairis/malloy';
 import {BaseLanguageClient} from 'vscode-languageclient';
 import {BuildModelRequest} from '../../common/types';
 import {

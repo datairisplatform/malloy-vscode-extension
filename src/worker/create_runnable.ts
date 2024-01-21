@@ -26,7 +26,7 @@ import {
   QueryMaterializer,
   Runtime,
   SQLBlockMaterializer,
-} from '@malloydata/malloy';
+} from '@datairis/malloy';
 import {CellData} from '../common/types';
 import {QuerySpec} from '../common/query_spec';
 

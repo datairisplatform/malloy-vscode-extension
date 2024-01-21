@@ -21,7 +21,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {CSVWriter, JSONWriter, Result, WriteStream} from '@malloydata/malloy';
+import {CSVWriter, JSONWriter, Result, WriteStream} from '@datairis/malloy';
 import {
   QueryDownloadMessage,
   QueryDownloadOptions,

@@ -21,7 +21,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {BigQueryConnection} from '@malloydata/db-bigquery';
+import {BigQueryConnection} from '@datairis/db-bigquery';
 import {
   ConfigOptions,
   BigQueryConnectionConfig,

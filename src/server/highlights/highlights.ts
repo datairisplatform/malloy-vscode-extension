@@ -22,7 +22,7 @@
  */
 
 import {TextDocument} from 'vscode-languageserver-textdocument';
-import {HighlightType} from '@malloydata/malloy';
+import {HighlightType} from '@datairis/malloy';
 import {SemanticTokens, SemanticTokensBuilder} from 'vscode-languageserver';
 import {parseWithCache} from '../parse_cache';
 

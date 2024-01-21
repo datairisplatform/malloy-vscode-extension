@@ -7,14 +7,14 @@
   "private": true,
   "config": {
     "malloy_packages": [
-      "@malloydata/malloy",
-      "@malloydata/db-bigquery",
-      "@malloydata/db-duckdb",
-      "@malloydata/db-postgres",
-      "@malloydata/db-snowflake",
-      "@malloydata/render",
-      "@malloydata/malloy-sql",
-      "@malloydata/syntax-highlight"
+      "@datairis/malloy",
+      "@datairis/db-bigquery",
+      "@datairis/db-duckdb",
+      "@datairis/db-postgres",
+      "@datairis/db-snowflake",
+      "@datairis/render",
+      "@datairis/malloy-sql",
+      "@datairis/syntax-highlight"
     ]
   },
   "engines": {
@@ -589,14 +589,14 @@
   },
   "dependencies": {
     "@lit-labs/observers": "^2.0.2",
-    "@malloydata/db-bigquery": "^0.0.118",
-    "@malloydata/db-duckdb": "^0.0.118",
-    "@malloydata/db-postgres": "^0.0.118",
+    "@datairis/db-bigquery": "^0.0.119",
+    "@datairis/db-duckdb": "^0.0.119",
+    "@datairis/db-postgres": "^0.0.119",
     "@datairis/db-snowflake": "^0.0.121",
-    "@malloydata/malloy": "^0.0.118",
-    "@malloydata/malloy-sql": "^0.0.118",
-    "@malloydata/render": "^0.0.118",
-    "@malloydata/syntax-highlight": "^0.0.118",
+    "@datairis/malloy": "^0.0.121",
+    "@datairis/malloy-sql": "^0.0.119",
+    "@datairis/render": "^0.0.121",
+    "@datairis/syntax-highlight": "^0.0.119",
     "@vscode/codicons": "^0.0.33",
     "@vscode/webview-ui-toolkit": "^1.2.1",
     "duckdb": "0.8.1",

@@ -24,7 +24,7 @@
 import {CompletionParams} from 'vscode-languageserver';
 import {Position, TextDocument} from 'vscode-languageserver-textdocument';
 import {TranslateCache} from '../translate_cache';
-import {Explore, Field, Model} from '@malloydata/malloy';
+import {Explore, Field, Model} from '@datairis/malloy';
 import {fieldType, isFieldAggregate} from '../../common/schema';
 
 /**

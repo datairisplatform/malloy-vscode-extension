@@ -21,8 +21,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {LogMessage} from '@malloydata/malloy';
-import {EmbeddedMalloyQuery} from '@malloydata/malloy-sql';
+import {LogMessage} from '@datairis/malloy';
+import {EmbeddedMalloyQuery} from '@datairis/malloy-sql';
 
 export const fixLogRange = (
   uri: string,

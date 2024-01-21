@@ -21,7 +21,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {NamedQuery, ResultJSON, SerializedExplore} from '@malloydata/malloy';
+import {NamedQuery, ResultJSON, SerializedExplore} from '@datairis/malloy';
 import {
   ConnectionBackend,
   ConnectionConfig,

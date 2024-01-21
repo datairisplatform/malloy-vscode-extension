@@ -23,7 +23,7 @@
 
 import * as fs from 'fs';
 import {fileURLToPath} from 'url';
-import {CSVWriter, JSONWriter, Runtime} from '@malloydata/malloy';
+import {CSVWriter, JSONWriter, Runtime} from '@datairis/malloy';
 import {
   MessageDownload,
   WorkerMessageHandler,

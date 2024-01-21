@@ -23,7 +23,7 @@
 
 import * as vscode from 'vscode';
 import {MALLOY_EXTENSION_STATE} from '../state';
-import {ResultJSON} from '@malloydata/malloy';
+import {ResultJSON} from '@datairis/malloy';
 import {BaseLanguageClient, CodeLens} from 'vscode-languageclient';
 
 export async function runQueryAtCursorCommand(
