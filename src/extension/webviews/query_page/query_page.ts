@@ -362,8 +362,8 @@ export class QueryPage extends LitElement {
             ${this.showOnlySql
               ? 'SQL'
               : this.showOnlySchema
-              ? 'SCHEMA'
-              : 'QUERY RESULTS'}
+                ? 'SCHEMA'
+                : 'QUERY RESULTS'}
           </span>
           ${when(
             !this.showOnlySchema,

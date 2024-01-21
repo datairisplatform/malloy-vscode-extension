@@ -39,10 +39,10 @@ export function exploreSubtype(explore: Explore) {
       relationship === JoinRelationship.ManyToOne
         ? 'many_to_one'
         : relationship === JoinRelationship.OneToMany
-        ? 'one_to_many'
-        : JoinRelationship.OneToOne
-        ? 'one_to_one'
-        : 'base';
+          ? 'one_to_many'
+          : JoinRelationship.OneToOne
+            ? 'one_to_one'
+            : 'base';
   } else {
     subtype = 'base';
   }

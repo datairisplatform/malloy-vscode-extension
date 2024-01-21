@@ -12,7 +12,8 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitAny": true,
     "noImplicitOverride": true,
-    "strict": true
+    "strict": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["./src"],
   "exclude": ["node_modules", ".vscode-test", ".vscode-test-web", "dist"]
