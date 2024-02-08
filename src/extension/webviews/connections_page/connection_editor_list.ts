@@ -33,11 +33,11 @@ import {
   ConnectionConfig,
   ExternalConnectionConfig,
   getDefaultIndex,
-} from '../../../common/connection_manager_types';
+} from '../../../common/types/connection_manager_types';
 import {
   ConnectionMessageInstallExternalConnection,
   ConnectionMessageTest,
-} from '../../../common/message_types';
+} from '../../../common/types/message_types';
 import {chevronRightIcon} from '../components/icons';
 import './connection_editor/connection_editor';
 import {styles as editorStyles} from './connection_editor/connection_editor.css';
@@ -81,7 +81,11 @@ export class ConnectionEditorList extends LitElement {
   @property({type: Array})
   testStatuses!: ConnectionMessageTest[];
   @property()
-  requestServiceAccountKeyPath!: (connectionId: string) => void;
+  requestFilePath!: (
+    connectionId: string,
+    configKey: string,
+    filters: {[key: string]: string[]}
+  ) => void;
   @property({type: Array})
   availableBackends!: ConnectionBackend[];
   @property()
@@ -151,8 +155,7 @@ export class ConnectionEditorList extends LitElement {
                 .testStatus=${[...this.testStatuses]
                   .reverse()
                   .find(message => message.connection.id === config.id)}
-                .requestServiceAccountKeyPath=${this
-                  .requestServiceAccountKeyPath}
+                .requestFilePath=${this.requestFilePath}
                 .isDefault=${index === defaultConnectionIndex}
                 .makeDefault=${() => this.makeDefault(index)}
                 .availableBackends=${this.availableBackends}

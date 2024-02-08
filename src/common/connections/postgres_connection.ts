@@ -26,7 +26,7 @@ import {PostgresConnection} from '@datairis/db-postgres';
 import {
   PostgresConnectionConfig,
   ConfigOptions,
-} from '../connection_manager_types';
+} from '../types/connection_manager_types';
 
 export const createPostgresConnection = async (
   connectionConfig: PostgresConnectionConfig,

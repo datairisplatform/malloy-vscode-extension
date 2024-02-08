@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files
@@ -21,31 +21,13 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {MessageConfig} from '../../common/worker_message_types';
-import {ConnectionManager} from '../../common/connection_manager';
+import {ConnectionManager} from '../common/connection_manager';
+import {ConnectionConfig} from '../common/types/connection_manager_types';
 
-const DEFAULT_ROW_LIMIT = 50;
-
-export const refreshConfig = (
+export async function testConnection(
   connectionManager: ConnectionManager,
-  {malloy, cloudcode}: MessageConfig
-): void => {
-  const {rowLimit: rowLimitRaw, connections} = malloy;
-
-  console.info('Config updated');
-
-  connectionManager.setConnectionsConfig(connections);
-  const rowLimit = rowLimitRaw || DEFAULT_ROW_LIMIT;
-  connectionManager.setCurrentRowLimit(+rowLimit);
-
-  const cloudCodeProject = cloudcode.project;
-  const cloudShellProject = cloudcode.cloudshell?.project;
-
-  const project = cloudCodeProject || cloudShellProject;
-
-  if (project && typeof project === 'string') {
-    process.env['DEVSHELL_PROJECT_ID'] = project;
-    process.env['GOOGLE_CLOUD_PROJECT'] = project;
-    process.env['GOOGLE_CLOUD_QUOTA_PROJECT'] = project;
-  }
-};
+  config: ConnectionConfig
+) {
+  const connection = await connectionManager.connectionForConfig(config);
+  await connection.test();
+}

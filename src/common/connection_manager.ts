@@ -30,7 +30,7 @@ import {
   ConfigOptions,
   ConnectionConfig,
   ExternalConnectionConfig,
-} from './connection_manager_types';
+} from './types/connection_manager_types';
 import {ConnectionFactory} from './connections/types';
 
 const DEFAULT_CONFIG = Symbol('default-config');
@@ -44,10 +44,8 @@ export class DynamicConnectionLookup implements LookupConnection<Connection> {
     private options: ConfigOptions
   ) {}
 
-  async lookupConnection(
-    connectionName?: string | undefined
-  ): Promise<Connection> {
-    const connectionKey = connectionName || DEFAULT_CONFIG;
+  async lookupConnection(connectionName: string): Promise<Connection> {
+    const connectionKey = connectionName;
     if (!this.connections[connectionKey]) {
       const connectionConfig = this.configs[connectionKey];
       if (connectionConfig) {

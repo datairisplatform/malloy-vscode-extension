@@ -145,6 +145,7 @@ export async function getMalloyLenses(
               arguments: [
                 `run: ${exploreName}->{ select: *; limit: 20 }`,
                 `Preview ${exploreName}`,
+                'preview',
               ],
             },
           });
@@ -218,7 +219,7 @@ export async function getMalloyLenses(
         currentUnnamedSQLBlockIndex++;
         break;
       case 'import':
-        {
+        try {
           const documentUrl = new URL(document.uri);
           const url = await fixNotebookUrl(
             connection,
@@ -247,6 +248,8 @@ export async function getMalloyLenses(
               },
             });
           }
+        } catch (e) {
+          console.error('import code lens failed with', e);
         }
         break;
     }

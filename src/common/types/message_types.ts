@@ -96,6 +96,7 @@ interface QueryMessageStatusSchema {
 
 interface QueryMessageStatusDone {
   status: QueryRunStatus.Done;
+  name: string;
   resultJson: ResultJSON;
   canDownloadStream: boolean;
   defaultTab?: string;
@@ -129,6 +130,12 @@ export interface QueryDownloadOptions {
   amount: 'current' | 'all' | number;
 }
 
+export interface QueryDownloadCopyData {
+  type: string;
+  download: string;
+  data: string;
+}
+
 export type QueryPanelMessage =
   | QueryMessageStatus
   | QueryMessageAppReady
@@ -156,7 +163,7 @@ export enum ConnectionMessageType {
   SetConnections = 'set-connections',
   AppReady = 'app-ready',
   TestConnection = 'test-connection',
-  RequestBigQueryServiceAccountKeyFile = 'request-bigquery-service-account-key-file',
+  RequestFile = 'request-file',
   InstallExternalConnection = 'install-external-connection',
 }
 
@@ -205,27 +212,32 @@ export type ConnectionMessageTest =
   | ConnectionMessageTestConnectionSuccess
   | ConnectionMessageTestConnectionError;
 
-export enum ConnectionServiceAccountKeyRequestStatus {
+export enum ConnectionServiceFileRequestStatus {
   Waiting = 'waiting',
   Success = 'success',
 }
 
-interface ConnectionMessageServiceAccountKeyRequestWaiting {
-  type: ConnectionMessageType.RequestBigQueryServiceAccountKeyFile;
-  status: ConnectionServiceAccountKeyRequestStatus.Waiting;
+interface ConnectionMessageServiceFileRequestWaiting {
+  type: ConnectionMessageType.RequestFile;
+  status: ConnectionServiceFileRequestStatus.Waiting;
   connectionId: string;
+  configKey: string;
+  filters: {
+    [name: string]: string[];
+  };
 }
 
-interface ConnectionMessageServiceAccountKeyRequestSuccess {
-  type: ConnectionMessageType.RequestBigQueryServiceAccountKeyFile;
-  status: ConnectionServiceAccountKeyRequestStatus.Success;
+interface ConnectionMessageServiceFileRequestSuccess {
+  type: ConnectionMessageType.RequestFile;
+  status: ConnectionServiceFileRequestStatus.Success;
   connectionId: string;
-  serviceAccountKeyPath: string;
+  configKey: string;
+  fsPath: string;
 }
 
 export type ConnectionMessageServiceAccountKeyRequest =
-  | ConnectionMessageServiceAccountKeyRequestWaiting
-  | ConnectionMessageServiceAccountKeyRequestSuccess;
+  | ConnectionMessageServiceFileRequestWaiting
+  | ConnectionMessageServiceFileRequestSuccess;
 
 export enum InstallExternalConnectionStatus {
   Waiting = 'waiting',

@@ -25,7 +25,7 @@ import {DuckDBWASMConnection} from '@datairis/db-duckdb/wasm';
 import {
   ConfigOptions,
   DuckDBConnectionConfig,
-} from '../connection_manager_types';
+} from '../types/connection_manager_types';
 import {isDuckDBAvailable} from '../duckdb_availability';
 
 export const createDuckDbWasmConnection = async (
@@ -36,7 +36,7 @@ export const createDuckDbWasmConnection = async (
     throw new Error('DuckDB is not available.');
   }
   workingDirectory = connectionConfig.workingDirectory || workingDirectory;
-  if (workingDirectory.startsWith('file:')) {
+  if (workingDirectory?.startsWith('file:')) {
     workingDirectory = workingDirectory.substring(7);
   }
   try {

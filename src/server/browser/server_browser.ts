@@ -29,7 +29,5 @@ import {BrowserMessageHandler} from './message_handler';
 
 const documents = new TextDocuments(TextDocument);
 initServer(documents, connection, connectionManager);
-const messageHandler = new BrowserMessageHandler(connection, connectionManager);
-if (messageHandler) {
-  connection.console.info('Server loaded');
-}
+new BrowserMessageHandler(connection, connectionManager);
+connection.console.info('Server loaded');

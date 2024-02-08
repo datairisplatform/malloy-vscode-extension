@@ -26,20 +26,10 @@ import {ConnectionManager} from '../../common/connection_manager';
 import {MessageHandler} from '../../worker/message_handler';
 
 export class BrowserMessageHandler {
-  constructor(
-    private connection: Connection,
-    private connectionManager: ConnectionManager
-  ) {
-    const messageHandler = new MessageHandler(
-      this.connection,
-      this.connectionManager,
-      true
-    );
+  messageHandler: MessageHandler;
 
-    messageHandler.onRequest('malloy/refreshSchemaCache', _message => {
-      // noop since schema cache is shared with language server
-    });
-
-    messageHandler.log('BrowserMessageHandler initialized.');
+  constructor(connection: Connection, connectionManager: ConnectionManager) {
+    this.messageHandler = new MessageHandler(connection, connectionManager);
+    this.messageHandler.log('BrowserMessageHandler initialized.');
   }
 }

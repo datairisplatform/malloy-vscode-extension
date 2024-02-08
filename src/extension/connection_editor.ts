@@ -26,15 +26,16 @@ import {getWebviewHtml} from './webviews';
 import {
   ConnectionMessageType,
   ConnectionPanelMessage,
-  ConnectionServiceAccountKeyRequestStatus,
+  ConnectionServiceFileRequestStatus,
   ConnectionTestStatus,
   InstallExternalConnectionStatus,
-} from '../common/message_types';
+} from '../common/types/message_types';
 import {WebviewMessageManager} from './webview_message_manager';
-import {ConnectionConfig} from '../common/connection_manager_types';
+import {ConnectionConfig} from '../common/types/connection_manager_types';
 import {errorMessage} from '../common/errors';
 import {ConnectionManager} from '../common/connection_manager';
-import {getMalloyConfig} from './utils';
+import {getMalloyConfig} from './utils/config';
+import {WorkerConnection} from './worker_connection';
 
 export class EditConnectionPanel {
   panel: vscode.WebviewPanel;
@@ -43,6 +44,7 @@ export class EditConnectionPanel {
 
   constructor(
     private connectionManager: ConnectionManager,
+    private worker: WorkerConnection,
     handleConnectionsPreSave: (
       connections: ConnectionConfig[]
     ) => Promise<ConnectionConfig[]>
@@ -94,10 +96,9 @@ export class EditConnectionPanel {
         }
         case ConnectionMessageType.TestConnection: {
           try {
-            const connection = await this.connectionManager.connectionForConfig(
-              message.connection
-            );
-            await connection.test();
+            await this.worker.sendRequest('malloy/testConnection', {
+              config: message.connection,
+            });
             this.messageManager.postMessage({
               type: ConnectionMessageType.TestConnection,
               status: ConnectionTestStatus.Success,
@@ -113,20 +114,22 @@ export class EditConnectionPanel {
           }
           break;
         }
-        case ConnectionMessageType.RequestBigQueryServiceAccountKeyFile: {
-          const result = await vscode.window.showOpenDialog({
-            canSelectMany: false,
-            filters: {
-              JSON: ['json'],
-            },
-          });
-          if (result) {
-            this.messageManager.postMessage({
-              type: ConnectionMessageType.RequestBigQueryServiceAccountKeyFile,
-              status: ConnectionServiceAccountKeyRequestStatus.Success,
-              connectionId: message.connectionId,
-              serviceAccountKeyPath: result[0].fsPath,
+        case ConnectionMessageType.RequestFile: {
+          if (message.status === ConnectionServiceFileRequestStatus.Waiting) {
+            const {configKey, filters, connectionId} = message;
+            const result = await vscode.window.showOpenDialog({
+              canSelectMany: false,
+              filters,
             });
+            if (result) {
+              this.messageManager.postMessage({
+                type: ConnectionMessageType.RequestFile,
+                status: ConnectionServiceFileRequestStatus.Success,
+                connectionId,
+                configKey,
+                fsPath: result[0].fsPath,
+              });
+            }
           }
           break;
         }

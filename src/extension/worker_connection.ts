@@ -26,14 +26,13 @@ import {
   GenericConnection,
   ListenerType,
   MessageMap,
-  WorkerLogMessage,
   WorkerMessageMap,
   WorkerFetchBinaryMessage,
   WorkerFetchCellDataMessage,
   WorkerFetchMessage,
   ExtensionMessageHandler,
-} from '../common/worker_message_types';
-import {FileHandler} from '../common/types';
+} from '../common/types/worker_message_types';
+import {FileHandler} from '../common/types/file_handler';
 import {Disposable, NotificationHandler, ProgressType} from 'vscode-jsonrpc';
 import {logPrefix} from '../common/log';
 
@@ -47,12 +46,6 @@ export abstract class WorkerConnection implements ExtensionMessageHandler {
   abstract get connection(): GenericConnection;
 
   subscribe() {
-    this.context.subscriptions.push(
-      this.onRequest('malloy/log', (message: WorkerLogMessage) => {
-        workerLog.appendLine(message.message);
-      })
-    );
-
     this.context.subscriptions.push(
       this.onRequest('malloy/fetch', async ({uri}: WorkerFetchMessage) => {
         workerLog.appendLine(`${logPrefix('Debug')} reading file ${uri}`);

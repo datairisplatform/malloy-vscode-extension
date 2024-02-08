@@ -36,11 +36,12 @@ import {
   ConnectionBackendNames,
   ConnectionConfig,
   ExternalConnectionConfig,
-} from '../../../../common/connection_manager_types';
+  PostgresConnectionConfig,
+} from '../../../../common/types/connection_manager_types';
 import {
   ConnectionMessageInstallExternalConnection,
   ConnectionMessageTest,
-} from '../../../../common/message_types';
+} from '../../../../common/types/message_types';
 import {chevronDownIcon} from '../../components/icons';
 import {styles} from './connection_editor.css';
 import './bigquery_connection_editor';
@@ -77,7 +78,11 @@ export class ConnectionEditor extends LitElement {
   testStatus!: ConnectionMessageTest | undefined;
 
   @property()
-  requestServiceAccountKeyPath!: (connectionId: string) => void;
+  requestFilePath!: (
+    connectionId: string,
+    configKey: string,
+    filters: {[key: string]: string[]}
+  ) => void;
 
   @property({type: Boolean})
   isDefault!: boolean;
@@ -121,7 +126,7 @@ export class ConnectionEditor extends LitElement {
         </b>
         ${this.isDefault
           ? html`<vscode-tag>Default</vscode-tag>`
-          : html`<vscode-button @click=${this.makeDefault} style="height: 25px">
+          : html`<vscode-button @click=${this.makeDefault}>
               Make Default
             </vscode-button>`}
       </div>
@@ -157,18 +162,18 @@ export class ConnectionEditor extends LitElement {
         ? html` <bigquery-connection-editor
             .config=${this.config}
             .setConfig=${this.setConfig}
-            .requestServiceAccountKeyPath=${() =>
-              this.requestServiceAccountKeyPath(this.config.id)}
+            .requestFilePath=${this.requestFilePath}
           ></bigquery-connection-editor>`
         : this.config.backend === ConnectionBackend.Postgres
           ? html`<postgres-connection-editor
-              .config=${this.config}
+              .config=${this.config as PostgresConnectionConfig}
               .setConfig=${this.setConfig}
             ></postgres-connection-editor>`
           : this.config.backend === ConnectionBackend.DuckDB
             ? html`<duckdb-connection-editor
                 .config=${this.config}
                 .setConfig=${this.setConfig}
+                .requestFilePath=${this.requestFilePath}
               ></duckdb-connection-editor>`
             : this.config.backend === ConnectionBackend.Snowflake
               ? html`<snowflake-connection-editor

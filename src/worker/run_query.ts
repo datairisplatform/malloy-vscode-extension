@@ -28,18 +28,37 @@ import {
   Result,
   Runtime,
   SerializedExplore,
+  StructDef,
 } from '@datairis/malloy';
 import {MalloySQLSQLParser} from '@datairis/malloy-sql';
 
-import {WorkerMessageHandler, MessageRun} from '../common/worker_message_types';
+import {
+  WorkerMessageHandler,
+  MessageRun,
+} from '../common/types/worker_message_types';
 
-import {QueryMessageStatus, QueryRunStatus} from '../common/message_types';
+import {
+  QueryMessageStatus,
+  QueryRunStatus,
+} from '../common/types/message_types';
 import {createModelMaterializer, createRunnable} from './create_runnable';
 import {ConnectionManager} from '../common/connection_manager';
-import {Cell, CellData, FileHandler, StructDefResult} from '../common/types';
+import {Cell, CellData, FileHandler} from '../common/types/file_handler';
 import {CancellationToken, ProgressType} from 'vscode-jsonrpc';
 import {errorMessage} from '../common/errors';
 import {fixLogRange} from '../common/malloy_sql';
+
+interface StructDefSuccess {
+  structDef: StructDef;
+  error?: undefined;
+}
+
+interface StructDefFailure {
+  error: string;
+  structDef?: undefined;
+}
+
+type StructDefResult = StructDefSuccess | StructDefFailure;
 
 const fakeMalloyResult = (
   {structDef}: StructDefResult,
@@ -90,7 +109,7 @@ const runMSQLCell = async (
   messageHandler: WorkerMessageHandler,
   files: FileHandler,
   connectionManager: ConnectionManager,
-  {query, panelId, showSQLOnly}: MessageRun,
+  {name, query, panelId, showSQLOnly}: MessageRun,
   cellData: CellData | null,
   currentCell: Cell,
   workspaceFolders: string[],
@@ -217,6 +236,7 @@ const runMSQLCell = async (
 
   sendMessage({
     status: QueryRunStatus.Done,
+    name,
     resultJson: queryResult.toJSON(),
     canDownloadStream: false,
     stats: {
@@ -237,7 +257,8 @@ export const runQuery = async (
   messageRun: MessageRun,
   cancellationToken: CancellationToken
 ): Promise<void> => {
-  const {query, panelId, showSQLOnly, showSchemaOnly, defaultTab} = messageRun;
+  const {defaultTab, name, panelId, query, showSQLOnly, showSchemaOnly} =
+    messageRun;
 
   const sendMessage = (message: QueryMessageStatus) => {
     console.debug('sendMessage', panelId, message.status);
@@ -376,6 +397,7 @@ export const runQuery = async (
     const totalTime = elapsedTime(allBegin, runFinish);
 
     sendMessage({
+      name,
       status: QueryRunStatus.Done,
       resultJson: queryResult.toJSON(),
       canDownloadStream: !isBrowser,

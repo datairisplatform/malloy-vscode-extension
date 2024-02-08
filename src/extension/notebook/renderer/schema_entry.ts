@@ -26,7 +26,7 @@ import {customElement, property} from 'lit/decorators.js';
 
 import {Explore, Field, NamedQuery, QueryField} from '@datairis/malloy';
 import {ActivationFunction} from 'vscode-notebook-renderer';
-import {FetchModelMessage} from '../../../common/message_types';
+import {FetchModelMessage} from '../../../common/types/message_types';
 import {fieldType} from '../../../common/schema';
 import '../../webviews/components/schema_renderer';
 import {MalloyRendererMessage} from '../types';
@@ -117,7 +117,7 @@ export class SchemaRendererWrapper extends LitElement {
     const args = [
       `run: ${exploreName}->{ select: ${select}; limit: 20 }`,
       `Preview ${exploreName} ${accessPath}`,
-      'html',
+      'preview',
     ];
     this.postMessage?.({command, args});
   };

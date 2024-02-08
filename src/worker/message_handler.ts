@@ -22,16 +22,17 @@
  */
 
 import {runQuery} from './run_query';
+import {testConnection} from './test_connection';
 import {
   GenericConnection,
   ListenerType,
   WorkerMessageHandler,
   MessageMap,
   WorkerMessageMap,
-} from '../common/worker_message_types';
+} from '../common/types/worker_message_types';
 import {ConnectionManager} from '../common/connection_manager';
 import {RpcFileHandler} from './file_handler';
-import {FileHandler} from '../common/types';
+import {FileHandler} from '../common/types/file_handler';
 import {ProgressType} from 'vscode-jsonrpc';
 
 export class MessageHandler implements WorkerMessageHandler {
@@ -52,6 +53,10 @@ export class MessageHandler implements WorkerMessageHandler {
         message,
         cancellationToken
       )
+    );
+
+    this.onRequest('malloy/testConnection', message =>
+      testConnection(connectionManager, message.config)
     );
   }
 
@@ -78,6 +83,6 @@ export class MessageHandler implements WorkerMessageHandler {
   }
 
   log(message: string) {
-    this.sendRequest('malloy/log', {message});
+    console.info(message);
   }
 }

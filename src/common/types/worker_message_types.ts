@@ -29,15 +29,13 @@ import {
   ProgressType,
 } from 'vscode-jsonrpc';
 import {QueryDownloadOptions} from './message_types';
-import {CellData, MalloyConfig} from './types';
+import {CellData} from './file_handler';
 import {QuerySpec} from './query_spec';
+import {ConnectionConfig} from './connection_manager_types';
 
 /*
  * Incoming messages
  */
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface MessageExit {}
 
 export interface MessageRun {
   query: QuerySpec;
@@ -46,18 +44,6 @@ export interface MessageRun {
   showSQLOnly: boolean;
   showSchemaOnly: boolean;
   defaultTab?: string;
-}
-
-export interface CloudCodeConfig {
-  project?: string;
-  cloudshell?: {
-    project?: string;
-  };
-}
-
-export interface MessageConfig {
-  malloy: MalloyConfig;
-  cloudcode: CloudCodeConfig;
 }
 
 export interface MessageFetch {
@@ -92,6 +78,10 @@ export interface MessageRefreshSchemaCache {
   uri: string;
 }
 
+export interface MessageTest {
+  config: ConnectionConfig;
+}
+
 export interface MessageFetchWorkspaceFolders {
   workspaceFolders: string[];
 }
@@ -106,15 +96,13 @@ export type FetchMessage =
  * Type map of extension message types to message interfaces.
  */
 export interface MessageMap {
-  'malloy/config': MessageConfig;
-  'malloy/exit': void;
   'malloy/fetch': MessageFetch;
   'malloy/fetchBinary': MessageFetchBinary;
   'malloy/fetchCellData': MessageFetchCellData;
   'malloy/fetchWorkspaceFolders': MessageFetchCellData;
   'malloy/run': MessageRun;
   'malloy/download': MessageDownload;
-  'malloy/refreshSchemaCache': MessageRefreshSchemaCache;
+  'malloy/testConnection': MessageTest;
 }
 
 /**
@@ -151,7 +139,6 @@ export interface WorkerFetchWorkspaceFoldersMessage {
  */
 export interface WorkerMessageMap {
   'malloy/download': WorkerDownloadMessage;
-  'malloy/log': WorkerLogMessage;
   'malloy/fetchBinary': WorkerFetchBinaryMessage;
   'malloy/fetch': WorkerFetchMessage;
   'malloy/fetchCellData': WorkerFetchCellDataMessage;

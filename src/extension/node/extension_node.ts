@@ -31,14 +31,15 @@ import {
   TransportKind,
 } from 'vscode-languageclient/node';
 import {editConnectionsCommand} from './commands/edit_connections';
-import {ConnectionsProvider} from '../tree_views/connections_view';
+import {
+  ConnectionItem,
+  ConnectionsProvider,
+} from '../tree_views/connections_view';
 import {connectionManager} from './connection_manager';
 import {setupFileMessaging, setupSubscriptions} from '../subscriptions';
-import {fileHandler, getMalloyConfig} from '../utils';
+import {fileHandler} from '../utils/files';
 import {MALLOY_EXTENSION_STATE} from '../state';
 import {WorkerConnectionNode} from './worker_connection_node';
-import {MalloyConfig} from '../../common/types';
-import {CloudCodeConfig} from '../../common/worker_message_types';
 
 let client: LanguageClient;
 
@@ -58,8 +59,7 @@ const cloudCodeEnv = () => {
 export function activate(context: vscode.ExtensionContext): void {
   cloudCodeEnv();
   setupLanguageServer(context);
-  const worker = new WorkerConnectionNode(context, fileHandler);
-  sendWorkerConfig(worker);
+  const worker = new WorkerConnectionNode(context, client, fileHandler);
   setupSubscriptions(context, worker, client);
   const connectionsTree = new ConnectionsProvider(context, connectionManager);
 
@@ -72,7 +72,7 @@ export function activate(context: vscode.ExtensionContext): void {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       'malloy.editConnections',
-      editConnectionsCommand
+      (item?: ConnectionItem) => editConnectionsCommand(worker, item?.id)
     )
   );
 
@@ -80,11 +80,9 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.workspace.onDidChangeConfiguration(async e => {
       if (e.affectsConfiguration('malloy')) {
         await connectionManager.onConfigurationUpdated();
-        sendWorkerConfig(worker);
         connectionsTree.refresh();
       }
       if (e.affectsConfiguration('cloudcode')) {
-        sendWorkerConfig(worker);
         cloudCodeEnv();
       }
     })
@@ -142,13 +140,4 @@ async function setupLanguageServer(
   await client.start();
 
   setupFileMessaging(context, client, fileHandler);
-}
-
-function sendWorkerConfig(worker: WorkerConnectionNode) {
-  worker.sendRequest('malloy/config', {
-    malloy: getMalloyConfig() as unknown as MalloyConfig,
-    cloudcode: vscode.workspace.getConfiguration(
-      'cloudcode'
-    ) as unknown as CloudCodeConfig,
-  });
 }

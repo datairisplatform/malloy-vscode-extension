@@ -29,7 +29,7 @@ import {
   vsCodeRadio,
   vsCodeTextField,
 } from '@vscode/webview-ui-toolkit';
-import {BigQueryConnectionConfig} from '../../../../common/connection_manager_types';
+import {BigQueryConnectionConfig} from '../../../../common/types/connection_manager_types';
 import {customElement, property} from 'lit/decorators.js';
 import {styles} from './connection_editor.css';
 
@@ -51,7 +51,17 @@ export class BigQueryConnectionEditor extends LitElement {
   setConfig!: (config: BigQueryConnectionConfig) => void;
 
   @property()
-  requestServiceAccountKeyPath!: () => void;
+  requestFilePath!: (
+    connectionId: string,
+    configKey: string,
+    filters: {[key: string]: string[]}
+  ) => void;
+
+  requestServiceAccountKeyPath = () => {
+    this.requestFilePath(this.config.id, 'serviceAccountKeyPath', {
+      JSON: ['json'],
+    });
+  };
 
   override render() {
     return html` <table>
@@ -125,10 +135,7 @@ export class BigQueryConnectionEditor extends LitElement {
             ></vscode-text-field>
           </td>
           <td>
-            <vscode-button
-              @click=${this.requestServiceAccountKeyPath}
-              style="height: 25px"
-            >
+            <vscode-button @click=${this.requestServiceAccountKeyPath}>
               Pick File
             </vscode-button>
           </td>

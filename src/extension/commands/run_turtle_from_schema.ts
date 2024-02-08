@@ -21,36 +21,15 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {Runtime} from '@datairis/malloy';
-import {MessageRefreshSchemaCache} from '../../common/worker_message_types';
-import {CellData, FileHandler} from '../../common/types';
-import {ConnectionManager} from '../../common/connection_manager';
-import {createModelMaterializer} from '../create_runnable';
+import * as vscode from 'vscode';
 
-export const refreshSchemaCache = async (
-  connectionManager: ConnectionManager,
-  fileHandler: FileHandler,
-  {uri}: MessageRefreshSchemaCache
-): Promise<void> => {
-  const url = new URL(uri);
-  const connectionLookup = connectionManager.getConnectionLookup(url);
-  const runtime = new Runtime(fileHandler, connectionLookup);
-
-  let cellData: CellData | null = null;
-  if (url.protocol === 'vscode-notebook-cell:') {
-    cellData = await fileHandler.fetchCellData(uri);
-  }
-  let workspaceFolders: string[] = [];
-  if (url.protocol === 'untitled:') {
-    workspaceFolders = await fileHandler.fetchWorkspaceFolders(uri);
-  }
-
-  const mm = await createModelMaterializer(
-    uri,
-    runtime,
-    cellData,
-    workspaceFolders,
-    true
+export function runTurtleFromSchemaCommand(item: {
+  topLevelExplore: string;
+  accessPath: string[];
+}): void {
+  vscode.commands.executeCommand(
+    'malloy.runQuery',
+    `run: ${item.topLevelExplore}->${item.accessPath.join('.')}`,
+    `${item.topLevelExplore}->${item.accessPath.join('.')}`
   );
-  await mm?.getModel();
-};
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files
@@ -21,19 +21,18 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {logPrefix} from '../../common/log';
-import {NodeMessageHandler} from './message_handler';
+import * as vscode from 'vscode';
 
-export const messageHandler = new NodeMessageHandler();
-
-// eslint-disable-next-line no-console
-console.log = (...args: unknown[]) =>
-  messageHandler.log(logPrefix('Log'), ...args);
-console.debug = (...args: unknown[]) =>
-  messageHandler.log(logPrefix('Debug'), ...args);
-console.info = (...args: unknown[]) =>
-  messageHandler.log(logPrefix('Info'), ...args);
-console.warn = (...args: unknown[]) =>
-  messageHandler.log(logPrefix('Warn'), ...args);
-console.error = (...args: unknown[]) =>
-  messageHandler.log(logPrefix('Error'), ...args);
+export function previewFromSchemaCommand(item: {
+  topLevelExplore: string;
+  accessPath: string[];
+}): void {
+  vscode.commands.executeCommand(
+    'malloy.runQuery',
+    `run: ${item.topLevelExplore}->{ select: ${[...item.accessPath, '*'].join(
+      '.'
+    )}; limit: 20 }`,
+    `Preview ${item.topLevelExplore} ${item.accessPath.join('.')}`,
+    'preview'
+  );
+}

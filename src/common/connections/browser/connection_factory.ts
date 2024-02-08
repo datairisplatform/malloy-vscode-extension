@@ -28,7 +28,7 @@ import {
   ConnectionBackend,
   ConnectionConfig,
   ExternalConnectionConfig,
-} from '../../connection_manager_types';
+} from '../../types/connection_manager_types';
 import {createDuckDbWasmConnection} from '../duckdb_wasm_connection';
 import {DuckDBWASMConnection} from '@datairis/db-duckdb/wasm';
 
@@ -60,9 +60,7 @@ export class WebConnectionFactory implements ConnectionFactory {
 
   async getConnectionForConfig(
     connectionConfig: ConnectionConfig,
-    configOptions: ConfigOptions = {
-      workingDirectory: '/',
-    }
+    configOptions: ConfigOptions = {}
   ): Promise<TestableConnection> {
     const {useCache, workingDirectory} = configOptions;
     const cacheKey = `${connectionConfig.name}::${workingDirectory}`;

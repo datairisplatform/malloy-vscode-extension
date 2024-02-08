@@ -23,17 +23,17 @@
 
 import * as vscode from 'vscode';
 
-import {MALLOY_EXTENSION_STATE, RunState} from '../state';
+import {MALLOY_EXTENSION_STATE, RunState} from '../../state';
 import {Result, ResultJSON} from '@datairis/malloy';
 import {
   QueryMessageStatus,
   QueryRunStatus,
   queryPanelProgress,
-} from '../../common/message_types';
-import {queryDownload} from './query_download';
-import {malloyLog} from '../logger';
-import {trackQueryRun} from '../telemetry';
-import {DocumentMetadata, QuerySpec} from '../../common/query_spec';
+} from '../../../common/types/message_types';
+import {queryDownload} from './query_download_utils';
+import {malloyLog} from '../../logger';
+import {trackQueryRun} from '../../telemetry';
+import {DocumentMetadata, QuerySpec} from '../../../common/types/query_spec';
 import {CancellationTokenSource, Disposable} from 'vscode-jsonrpc';
 import {
   createOrReuseWebviewPanel,
@@ -41,7 +41,7 @@ import {
   loadQueryWebview,
   showSchemaTreeViewWhenFocused,
 } from './vscode_utils';
-import {WorkerConnection} from '../worker_connection';
+import {WorkerConnection} from '../../worker_connection';
 
 export interface RunMalloyQueryOptions {
   showSQLOnly?: boolean;
@@ -173,7 +173,8 @@ export function runMalloyQuery(
         },
         cancellationTokenSource.token
       )
-      .catch(() => {
+      .catch(e => {
+        console.error(e);
         const error =
           'The worker process has died, and has been restarted. ' +
           'This is possibly the result of a database bug. ' +

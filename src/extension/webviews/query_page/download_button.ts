@@ -23,13 +23,17 @@
 
 import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import {QueryDownloadOptions} from '../../../common/message_types';
+import {
+  QueryDownloadCopyData,
+  QueryDownloadOptions,
+} from '../../../common/types/message_types';
 import '../components/popup_dialog';
 import './download_form';
 import {
   provideVSCodeDesignSystem,
   vsCodeButton,
 } from '@vscode/webview-ui-toolkit';
+import {Result} from '@datairis/malloy';
 
 provideVSCodeDesignSystem().register(vsCodeButton());
 
@@ -51,7 +55,16 @@ const icon = html`<svg
 @customElement('download-button')
 export class DownloadButton extends LitElement {
   @property()
+  name? = 'malloy';
+
+  @property({type: Object})
+  result!: Result;
+
+  @property()
   onDownload!: (options: QueryDownloadOptions) => Promise<void>;
+
+  @property()
+  onCopy!: (options: QueryDownloadCopyData) => Promise<void>;
 
   @property({type: Boolean})
   canStream!: boolean;
@@ -65,6 +78,10 @@ export class DownloadButton extends LitElement {
     }
   };
 
+  onClose = () => {
+    this.open = false;
+  };
+
   override connectedCallback() {
     super.connectedCallback();
     document.addEventListener('mousedown', this.onMouseDown);
@@ -76,24 +93,33 @@ export class DownloadButton extends LitElement {
   }
 
   override render() {
+    const mouseBlock = (event: MouseEvent) => event.stopPropagation();
     return html`<vscode-button
         appearance="icon"
         title="Download"
+        @mousedown=${mouseBlock}
         @click=${() => (this.open = !this.open)}
       >
         ${icon}
       </vscode-button>
       <popup-dialog
-        @mousedown=${(event: MouseEvent) => event.stopPropagation()}
+        @mousedown=${mouseBlock}
         ?open=${this.open}
         .setOpen=${(open: boolean) => (this.open = open)}
         style="width: 200px"
       >
         <download-form
+          .name=${this.name}
+          .result=${this.result}
           ?canStream=${this.canStream}
           .onDownload=${async (options: QueryDownloadOptions) => {
-            this.open = false;
+            this.onClose();
             await this.onDownload(options);
+          }}
+          .onClose=${this.onClose}
+          .onCopy=${async (options: QueryDownloadCopyData) => {
+            this.onClose();
+            await this.onCopy(options);
           }}
         ></download-form>
       </popup-dialog>`;

@@ -25,7 +25,7 @@ import {SnowflakeConnection} from '@datairis/db-snowflake';
 import {
   ConfigOptions,
   SnowflakeConnectionConfig,
-} from '../connection_manager_types';
+} from '../types/connection_manager_types';
 
 export const createSnowflakeConnection = async (
   connectionConfig: SnowflakeConnectionConfig,

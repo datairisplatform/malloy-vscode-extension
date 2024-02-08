@@ -28,7 +28,7 @@ import {
   vsCodeRadio,
   vsCodeTextField,
 } from '@vscode/webview-ui-toolkit';
-import {SnowflakeConnectionConfig} from '../../../../common/connection_manager_types';
+import {SnowflakeConnectionConfig} from '../../../../common/types/connection_manager_types';
 import {customElement, property} from 'lit/decorators.js';
 import {styles} from './connection_editor.css';
 
